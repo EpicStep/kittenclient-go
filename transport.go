@@ -1,23 +1,25 @@
 package kittenclient
 
 import (
-	"io"
+	"bytes"
+	"encoding/binary"
+	"fmt"
+	"hash/crc32"
+	"net"
 	"net/http"
+	"strings"
 )
 
 type transport struct {
-	http *http.Client
-	//udp  *net.Conn
+	config *ClientConfig
 }
 
-//func newTransport(config *ClientConfig) *transport {
-//	if !config.UDP {
-//		transport := transport{http: http.Client{}, }
-//	}
-//}
+// Send HTTP request to kittenhouse
+func (transport *transport) sendHttp(table string, data string) error {
+	url := fmt.Sprintf("http://%s/?table=%s", transport.config.Addr, table)
 
-func (transport *transport) sendHttp(url string, contentType string, body io.Reader) error {
-	_, err := transport.http.Post(url, contentType, body)
+	_, err := http.Post(url, "application/json", strings.NewReader(data))
+
 	if err != nil {
 		return err
 	}
@@ -25,8 +27,31 @@ func (transport *transport) sendHttp(url string, contentType string, body io.Rea
 	return nil
 }
 
-//func (transport *transport) sendUDP() {
-//
-//}
+// sendUDP send packet in the following format:
+// | table_name | \0 | data | crc32 (4 byte) |
+func (transport *transport) sendUDP(table string, data string) error {
+	conn, err := net.Dial("udp", transport.config.Addr)
+	if err != nil {
+		return err
+	}
+
+	buf := bytes.NewBuffer([]byte{})
+
+	buf.Write([]byte(table))
+	buf.WriteByte(0)
+	buf.Write([]byte(data))
+
+	hash := crc32.ChecksumIEEE(buf.Bytes())
+	err = binary.Write(buf, binary.LittleEndian, hash)
+
+	if err != nil {
+		return err
+	}
+
+	conn.Write(buf.Bytes())
+	conn.Close()
+
+	return nil
+}
 
 

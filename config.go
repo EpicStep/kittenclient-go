@@ -1,15 +1,16 @@
 package kittenclient
 
+// Config for logger
 type ClientConfig struct {
-	KittenURL string
-	RowBinary bool
-	UDP bool
-	Table string
+	// Addres of kittenhouse
+	Addr      string
+	// UDP transoprt instand TCP
+	UDP       bool
 }
 
 func (config *ClientConfig) setup() {
-	if config.KittenURL == "" {
-		config.KittenURL = "http://localhost:13338"
+	if config.Addr == "" {
+		config.Addr = "localhost:13338"
 	}
 }
 
