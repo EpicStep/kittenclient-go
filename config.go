@@ -2,10 +2,10 @@ package kittenclient
 
 // Config for logger
 type ClientConfig struct {
-	// Addres of kittenhouse
-	Addr      string
-	// UDP transoprt instand TCP
-	UDP       bool
+	// Address of kittenhouse
+	Addr string
+	// UDP transport instead TCP
+	UDP bool
 }
 
 func (config *ClientConfig) setup() {
@@ -13,4 +13,3 @@ func (config *ClientConfig) setup() {
 		config.Addr = "localhost:13338"
 	}
 }
-
