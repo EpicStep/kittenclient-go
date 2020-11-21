@@ -6,6 +6,6 @@ clickhouse-client -q "CREATE TABLE default.daemon_heartbeat ( date Date DEFAULT 
 clickhouse-client -q "CREATE TABLE default.daemon_heartbeat_buffer AS default.daemon_heartbeat ENGINE = Buffer(default, daemon_heartbeat, 2, 15, 15, 10000000, 10000000, 100000000, 100000000);"
 
 go get github.com/VKCOM/kittenhouse
-cd $GOPATH/go/src/github.com/vkcom/kittenhouse
+cd $HOME/go/src/github.com/vkcom/kittenhouse
 go build main.go
 ./main -u="" -g=""
