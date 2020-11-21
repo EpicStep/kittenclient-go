@@ -3,6 +3,7 @@ language: go
 go:
   - 1.15.2
 
+dist: focal
 
 before_install:
   - ./travis/before_install.bash
