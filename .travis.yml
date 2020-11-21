@@ -1,0 +1,17 @@
+language: go
+
+go:
+  - 1.14.x
+
+services:
+  - clickhouse
+
+env:
+  global:
+    - KITTENHOUSE_ADDR=localhost:13338
+
+before_script:
+  - ./travis/before_script.bash
+
+script:
+  - go test -v
