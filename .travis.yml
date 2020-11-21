@@ -11,6 +11,7 @@ before_install:
 env:
   global:
     - KITTENHOUSE_ADDR=localhost:13338
+    - GO111MODULE=on
 
 before_script:
   - ./travis/before_script.bash
