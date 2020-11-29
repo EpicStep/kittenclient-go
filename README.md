@@ -1,6 +1,7 @@
 ## Kittenclient-go
 
 [![Build Status](https://travis-ci.com/EpicStep/kittenclient-go.svg?branch=master)](https://travis-ci.com/github/EpicStep/kittenclient-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/EpicStep/kittenclient-go)](https://goreportcard.com/report/github.com/EpicStep/kittenclient-go)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/EpicStep/kittenclient-go)](https://pkg.go.dev/github.com/EpicStep/kittenclient-go)
 
 Kittenclient is a client to [kittenhouse](https://github.com/VKCOM/kittenhouse) written in go. He makes requests to kittenhouse easier. 
