@@ -42,16 +42,17 @@ func (transport *transport) sendUDP(table string, data string) error {
 	buf.Write([]byte(data))
 
 	hash := crc32.ChecksumIEEE(buf.Bytes())
-	err = binary.Write(buf, binary.LittleEndian, hash)
-
-	if err != nil {
+	if err = binary.Write(buf, binary.LittleEndian, hash); err != nil {
 		return err
 	}
 
-	conn.Write(buf.Bytes())
-	conn.Close()
+	if _, err = conn.Write(buf.Bytes()); err != nil {
+		return err
+	}
+
+	if err = conn.Close(); err != nil {
+		return err
+	}
 
 	return nil
 }
-
-

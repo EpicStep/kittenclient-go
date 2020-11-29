@@ -1,6 +1,6 @@
 package kittenclient
 
-// Config for logger
+// ClientConfig save config to kittenhouse connections.
 type ClientConfig struct {
 	// Address of kittenhouse
 	Addr string
